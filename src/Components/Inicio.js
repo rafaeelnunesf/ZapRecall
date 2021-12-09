@@ -1,4 +1,6 @@
 export default function Inicio() {
+  let botoes = ["Javascript","React","Outracoisa"]
+
   return(
     <div className="inicio">
       <img className="logo" src="/assets/logo.png"/>
@@ -7,23 +9,17 @@ export default function Inicio() {
 
       <div className="decks">
 
-        <button className="botao-inicio">
-          <p>Praticar JavaScript</p>
-          <img src="/assets/next.png"/>
-        </button>
-
-        <button className="botao-inicio">
-          <p>Praticar react</p>
-          <img src="/assets/next.png"/>
-        </button>
-
-        <button className="botao-inicio">
-          <p>Praticar react</p>
-          <img src="/assets/next.png"/>
-        </button>
-        
+        {botoes.map(item=>{
+          return(
+            <button className="botao-inicio" data-identifier="start-zap-recall">
+              <p>Praticar {item}</p>
+              <img src="/assets/next.png"/>
+            </button>
+          )})}
+       
       </div>
 
     </div>
   )
 }
+
