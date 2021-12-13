@@ -1,44 +1,52 @@
-export default function FlashCard() {
+import { useState } from "react/cjs/react.development"
+import CardFrente from "./CardFrente"
+import CardVirado from "./CardVirado"
+
+export default function FlashCard({children}) {
+  const [,setZaps,zaps,setPagina,contador,setContador,lembrou,setLembrou] = children
+  const perguntas = children[0].perguntas
+
+  const[CardSide,setCardSide] = useState("CardFrente")
+  
+
+  if(contador>children[0].perguntas.length){
+    setPagina("TelaResultado")
+    return
+  }
+  
+  function VirarCarta(CardSide) {
+    if (CardSide==="CardFrente") {
+      setCardSide("CardVirado")
+    }else{
+      setCardSide("CardFrente")
+    }
+  }
   return(
     <div className="flashcard" >
       <img src="assets/logo-mini.png" className="logo-mini"/>
+      <h1>{children[0].deck}</h1>
 
-      <h1>React</h1>
-      <CardVirado/>
-    </div>
-  )
-}
-function CardFrente() {
-  return(
-    <div className="card-frente">
-        <span>1/8</span>
-        <h1>O que é Jsx?</h1>
-        <img src="assets/turn.png"/>
-    </div>
-  )
-}
-function CardVirado() {
-  return(
-    <div className="card-virado"> {/* Adicionar classes para as bordas */}
-      <div>
-        <span>O que é Jsx?</span>
-        <span>1/8</span>
-      </div>
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Non ullamcorper at quis eu. Malesuada iaculis viverra a tincidunt arcu nullam. Orci tortor arcu placerat id sit et. Elementum in erat cras tortor at auctor diam.
-        </h1>
-        <img src="assets/turn.png"/> {/* Trocar por Botoes */}
+      {CardSide ==="CardFrente"
+      ? 
+      <CardFrente>
+        {perguntas}
+        {contador}
+        {CardSide}
+        {VirarCarta}
+      </CardFrente>
+      :
+      <CardVirado>
+        {perguntas}
+        {contador}
+        {setContador}
+        {setCardSide}
+        {setZaps} 
+        {zaps} 
+        {setPagina}
+        {lembrou}
+        {setLembrou}
+      </CardVirado>}
     </div>
   )
 }
 
-function Botoes() {
-  return(
-    <div className="botoes">
-      <button>Aprendi agora</button>
-      <button>Não lembrei</button>
-      <button>Lembrei com esforço</button>
-      <button>Zap!</button>
-  </div>
-  )
-}
